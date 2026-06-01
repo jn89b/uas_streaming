@@ -1,0 +1,26 @@
+# Optional: disable protocols you do not need
+# rtmp: no
+# hls: no
+# webrtc: no
+# srt: no
+
+rtsp: yes
+rtspAddress: :8554
+
+hls: yes
+hlsAddress: :8888
+
+webrtc: yes
+webrtcAddress: :8889
+
+rtmp: no
+srt: no
+
+# Use TCP from MediaMTX to the camera.
+# This is usually more reliable over Wi-Fi/LAN than UDP.
+# rtspTransport: tcp
+
+paths:
+  amcrest:
+    source: rtsp://admin:Hithat123!@192.168.1.102:554/cam/realmonitor?channel=1&subtype=1
+    sourceOnDemand: yes
