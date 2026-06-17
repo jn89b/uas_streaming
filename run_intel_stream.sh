@@ -1,0 +1,1 @@
+ffmpeg   -f v4l2   -input_format yuyv422   -framerate 30   -video_size 640x480   -i /dev/video4   -c:v libx264   -preset ultrafast   -tune zerolatency   -pix_fmt yuv420p   -f rtsp   rtsp://localhost:8554/realsense

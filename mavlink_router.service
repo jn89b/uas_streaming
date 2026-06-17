@@ -1,0 +1,14 @@
+[Unit]
+Description=MAVLink Router Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/run_mavlink_router.sh
+Restart=always
+RestartSec=2
+User=root
+
+[Install]
+WantedBy=multi-user.target

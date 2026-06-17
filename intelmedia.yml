@@ -1,0 +1,18 @@
+rtsp: yes
+rtspAddress: :8554
+
+hls: no
+hlsAddress: :8888
+
+webrtc: no
+webrtcAddress: :8889
+
+rtmp: no
+srt: no
+
+writeQueueSize: 1024
+
+paths:
+  realsense:
+    runOnInit: ffmpeg -f v4l2 -framerate 30 -video_size 640x480 -i /dev/video0 -c:v libx264 -preset ultrafast -tune zerolatency -pix_fmt yuv420p -f rtsp rtsp://localhost:8554/realsense
+    runOnInitRestart: yes

@@ -4,5 +4,7 @@ services:
     container_name: mediamtx
     restart: unless-stopped
     network_mode: host
+    devices:
+      - /dev/video0:/dev/video0
     volumes:
-      - ./mediamtx.yml:/mediamtx.yml
+      - ./intelmedia.yml:/mediamtx.yml
