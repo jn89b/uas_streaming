@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-sudo systemctl status mavlink-router.service -l --no-pager
+SERVICE_NAME="setup-mavlink-router.service"
+
+echo "===== MAVLink Router Service Status ====="
+sudo systemctl status "${SERVICE_NAME}" -l --no-pager || true
 
 echo
-echo "===== Full MAVLink Router logs ====="
-sudo journalctl -u mavlink-router.service -b -n 100 -l --no-pager
+echo "===== Full MAVLink Router Logs ====="
+sudo journalctl -u "${SERVICE_NAME}" -b -n 100 -l --no-pager

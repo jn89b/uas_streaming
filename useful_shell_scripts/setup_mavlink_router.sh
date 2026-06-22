@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Script lives in: uas_streaming/useful_shell_scripts/
-# main.conf lives in: uas_streaming/main.conf
+# Script location:
+# /home/cuav1/uas_streaming/useful_shell_scripts/setup_mavlink_router.sh
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
@@ -15,10 +16,13 @@ if [[ ! -f "${CONFIG_SRC}" ]]; then
     exit 1
 fi
 
-sudo install -D -m 644 "${CONFIG_SRC}" "${CONFIG_DST}"
-mavlink-routerd -c /etc/mavlink-router/main.conf
+# systemd runs this script as root, so do NOT use sudo here.
+install -D -m 644 "${CONFIG_SRC}" "${CONFIG_DST}"
 
 echo "Copied MAVLink Router config:"
 echo "  ${CONFIG_SRC}"
 echo "to:"
 echo "  ${CONFIG_DST}"
+
+# Replace this shell process with MAVLink Router so systemd tracks it properly.
+exec /usr/bin/mavlink-routerd -c "${CONFIG_DST}"
