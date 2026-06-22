@@ -91,3 +91,17 @@ cd useful_shell_scripts/
 ```
 
 # Media Streaming
+## IP camera
+- First make sure that you can connect to the IP address of the camera to do so enter the following command
+```bash
+sudo ip addr add 192.168.1.10/24 dev eth0
+```
+- Then confirm you can connect to the website of 
+```bash
+http://192.168.1.168
+```
+To login
+```
+Username: admin
+Password: 123456
+```

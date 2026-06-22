@@ -1,14 +1,16 @@
-rtsp: yes
+rtsp: true
 rtspAddress: :8554
-hls: no
-hlsAddress: :8888
-webrtc: no
-webrtcAddress: :8889
-rtmp: no
-srt: no
+rtspTransports: [tcp]
+
+hls: false
+webrtc: false
+rtmp: false
+srt: false
+
 writeQueueSize: 1024
 
 paths:
-  lorex:
-    source: rtsp://admin:123456@192.168.1.110:554/cam/realmonitor?channel=1&subtype=0
-    sourceOnDemand: yes
+  apti:
+    source: rtsp://admin:123456@192.168.1.168:80/0
+    rtspTransport: tcp
+    sourceOnDemand: false

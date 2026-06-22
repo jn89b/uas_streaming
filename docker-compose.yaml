@@ -1,10 +1,8 @@
 services:
   mediamtx:
-    image: bluenviron/mediamtx:latest
+    image: bluenviron/mediamtx:1.19.1
     container_name: mediamtx
     restart: unless-stopped
     network_mode: host
-    devices:
-      - /dev/video0:/dev/video0
     volumes:
-      - ./intelmedia.yml:/mediamtx.yml
+      - ./mediamtx.yml:/mediamtx.yml:ro
