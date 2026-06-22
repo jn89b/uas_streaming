@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-journalctl -u mavlink-router.service -f
+set -euo pipefail
+
+sudo systemctl status mavlink-router.service -l --no-pager
+
+echo
+echo "===== Full MAVLink Router logs ====="
+sudo journalctl -u mavlink-router.service -b -n 100 -l --no-pager
