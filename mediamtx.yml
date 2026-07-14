@@ -10,7 +10,18 @@ srt: false
 writeQueueSize: 1024
 
 paths:
-  apti:
-    source: rtsp://admin:123456@192.168.1.168:80/0
-    rtspTransport: tcp
+#  apti:
+#    source: rtsp://admin:123456@192.168.1.168:80/0
+#    rtspTransport: tcp
+#    sourceOnDemand: false
+
+
+
+  eo:
+    source: rtsp://admin:123456@192.168.1.240:8554/payload #shows both ir and normal camera feed
+    sourceOnDemand: false
+
+
+  ir_cam: 
+    source: rtsp://admin:123456@192.168.1.240:8554/payload_ir #only shows the ir camera feed
     sourceOnDemand: false
