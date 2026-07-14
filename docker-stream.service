@@ -1,0 +1,14 @@
+[Unit]
+Description=Stop other containers and start uas_streaming on boot
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/cuav/start-docker.sh
+User=cuav
+
+[Install]
+WantedBy=multi-user.target
