@@ -7,12 +7,11 @@ webrtc: false
 rtmp: false
 srt: false
 
-writeQueueSize: 1024
+writeQueueSize: 2048
 
 paths:
-
   eo:
-    source: rtsp://admin:123456@192.168.1.240:8554/payload #shows both ir and normal camera feed
+    source: rtsp://admin:123456@192.168.1.240:8554/payload_eo
     rtspTransport: tcp
     sourceOnDemand: false
 
@@ -21,16 +20,17 @@ paths:
       -hide_banner
       -loglevel warning
       -rtsp_transport tcp
-      -i rtsp://admin:123456@192.168.1.240:8554/payload
+      -i rtsp://admin:123456@192.168.1.240:8554/payload_eo
       -map 0:v:0
       -an
       -c:v copy
-      -bsf:v hevc_mp4toannexb
+      -bsf:v h264_mp4toannexb
       -f mpegts
       "srt://52.245.204.27:9810?mode=caller&streamid=#!::s=t01&passphrase=s070f326qazwsx25255&pbkeylen=16&pkt_size=1316"
 
     runOnReadyRestart: true
 
-  ir_cam: 
-    source: rtsp://admin:123456@192.168.1.240:8554/payload_ir #only shows the ir camera feed
+  ir_cam:
+    source: rtsp://admin:123456@192.168.1.240:8554/payload_ir
+    rtspTransport: tcp
     sourceOnDemand: false
