@@ -11,9 +11,9 @@
 # Quick Install Commands
 ``` bash
 cd useful_shell_scripts/
-./init_mavlink_router_install.sh
+./install_mavlink_router.sh
 cd useful_shell_scripts/
-./setup_mavlink_service.sh
+./install_mavlink_router_service.sh
 cd useful_shell_scripts/
 ./view_mavlink_service.sh
 ```

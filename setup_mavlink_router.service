@@ -6,9 +6,9 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/home/cuav1/uas_streaming
+WorkingDirectory=/home/%H/uas_streaming
 
-ExecStart=/bin/bash /home/cuav1/uas_streaming/useful_shell_scripts/setup_mavlink_router.sh
+ExecStart=/bin/bash /home/%H/uas_streaming/useful_shell_scripts/setup_mavlink_router.sh
 
 Restart=on-failure
 RestartSec=2
