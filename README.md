@@ -4,7 +4,10 @@
 
 # Prequsites
 - The assumption for this repo is that you have a VPN installed whether Tailscale or OpenVpn to route telemetry and video accordingly
-- In addition you must have docker and docker compose installed to use mediamtx 
+- In addition you must have docker and docker compose installed to use mediamtx, we provide a shell script that runs installs docker for you to do that enter the following
+```bash
+./useful_shell_scripts/install_docker.sh
+```
 
 # Mavlink-Router
 
@@ -91,6 +94,15 @@ cd useful_shell_scripts/
 ```
 
 # Media Streaming
+Make sure the container is running to begin streaming the video
+```
+docker compose up -d
+```
+You should see something like this pop up you can check if the container is running by typing `docker ps`
+```bash
+CONTAINER ID   IMAGE                        COMMAND       CREATED          STATUS          PORTS     NAMES
+6c66c637bf51   bluenviron/mediamtx:1.19.1   "/mediamtx"   24 minutes ago   Up 24 minutes             mediamtx
+```
 ## IP camera
 - First make sure that you can connect to the IP address of the camera to do so enter the following command
 ```bash
