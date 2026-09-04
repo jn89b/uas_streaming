@@ -103,6 +103,13 @@ You should see something like this pop up you can check if the container is runn
 CONTAINER ID   IMAGE                        COMMAND       CREATED          STATUS          PORTS     NAMES
 6c66c637bf51   bluenviron/mediamtx:1.19.1   "/mediamtx"   24 minutes ago   Up 24 minutes             mediamtx
 ```
+## Run MediaMTX as a service
+To start the container on boot and restart it if it stops, install the `mediamtx.service` (run as the user that runs docker):
+```bash
+./useful_shell_scripts/install_mediamtx_service.sh
+```
+Check it with `systemctl status mediamtx` or `journalctl -u mediamtx -f`.
+
 ## IP camera
 - First make sure that you can connect to the IP address of the camera to do so enter the following command
 ```bash
