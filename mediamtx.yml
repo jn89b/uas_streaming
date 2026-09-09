@@ -16,17 +16,17 @@ paths:
     rtspTransport: tcp
     sourceOnDemand: false
 
-    runOnReady: >-
-      ffmpeg
-      -hide_banner
-      -loglevel warning
-      -rtsp_transport tcp
-      -i rtsp://127.0.0.1:8554/eo
-      -map 0:v:0
-      -an
-      -c:v copy
-      -f mpegts
-      "srt://52.245.204.27:9810?mode=caller&streamid=#!::s=t01&passphrase=YOUR_PASSPHRASE&pbkeylen=16&pkt_size=1316"
+    # runOnReady: >-
+    #   ffmpeg
+    #   -hide_banner
+    #   -loglevel warning
+    #   -rtsp_transport tcp
+    #   -i rtsp://127.0.0.1:8554/eo
+    #   -map 0:v:0
+    #   -an
+    #   -c:v copy
+    #   -f mpegts
+    #   "srt://52.245.204.27:9810?mode=caller&streamid=#!::s=t01&passphrase=YOUR_PASSPHRASE&pbkeylen=16&pkt_size=1316"
 
     runOnReadyRestart: true
 
