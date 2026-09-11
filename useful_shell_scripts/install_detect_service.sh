@@ -8,23 +8,23 @@
 # one level up (override with SCRIPT=/path/to/detect_stream.py).
 #
 # Usage:
-#     sudo ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
-#     sudo HEF=/home/cuav7/other.hef FPS=15 ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
+#     sudo HEF=/home/cuav7/hailo26/model.hef ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
+#     sudo HEF=... FPS=15 PUBLISH_SIZE=640x360 ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
 #     sudo ~/uas_streaming/useful_shell_scripts/install_detect_service.sh --uninstall
 #
-# Settings (override with environment variables):
-#     SCRIPT        path to detect_stream.py      default: <repo>/detect_stream.py
+# Settings (environment variables):
 #     HEF           path to the .hef              default: <home>/model.hef
-#     OUT_SIZE      working size the model sees   default: 1280x720
-#     PUBLISH_SIZE  size of the published stream  default: 960x540
-#     LABELS        class names, e.g. "boat"      default: unset (COCO names for 80-class models, classN otherwise)
+#     WORK_SIZE     resolution the model sees     default: 1280x720  (OUT_SIZE accepted as alias)
+#     PUBLISH_SIZE  published resolution          default: 960x540
 #     FPS           published frame rate          default: 30
-#     EXTRA_ARGS    anything else, e.g. "--conf 0.5 --no-stamp"
+#     LABELS        class names, e.g. "boat"      default: unset (COCO for 80-class models, classN otherwise)
+#     EXTRA_ARGS    anything else, e.g. "--conf 0.5 --no-stamp"   (see: python3 detect_stream.py --help)
+#     SCRIPT        path to detect_stream.py      default: <repo>/detect_stream.py
 #
 # Afterwards:
 #     journalctl -fu detect-stream          live log
-#     sudo systemctl restart detect-stream  after editing detect_stream.py
-#     sudo systemctl stop detect-stream     before running the script by hand
+#     sudo systemctl restart detect-stream  after editing the code
+#     sudo systemctl stop detect-stream     before running the script by hand (the HAT is single-user)
 
 set -euo pipefail
 
@@ -51,10 +51,10 @@ REPO_DIR="$(cd "$THIS_DIR/.." && pwd)"
 SCRIPT="${SCRIPT:-$REPO_DIR/detect_stream.py}"
 
 HEF="${HEF:-$RUN_HOME/model.hef}"
-OUT_SIZE="${OUT_SIZE:-1280x720}"
+WORK_SIZE="${WORK_SIZE:-${OUT_SIZE:-1280x720}}"
 PUBLISH_SIZE="${PUBLISH_SIZE:-960x540}"
-LABELS="${LABELS:-}"
 FPS="${FPS:-30}"
+LABELS="${LABELS:-}"
 EXTRA_ARGS="${EXTRA_ARGS:-}"
 PYTHON="$(command -v python3)"
 LABELS_ARG=""
@@ -73,7 +73,7 @@ Wants=network-online.target
 Type=simple
 User=${RUN_USER}
 WorkingDirectory=$(dirname "$SCRIPT")
-ExecStart=${PYTHON} ${SCRIPT} --hef "${HEF}" --out-size ${OUT_SIZE} --publish-size ${PUBLISH_SIZE} ${LABELS_ARG} --fps ${FPS} ${EXTRA_ARGS}
+ExecStart=${PYTHON} ${SCRIPT} --hef "${HEF}" --work-size ${WORK_SIZE} --publish-size ${PUBLISH_SIZE} ${LABELS_ARG} --fps ${FPS} ${EXTRA_ARGS}
 Restart=always
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
@@ -88,7 +88,7 @@ systemctl daemon-reload
 systemctl enable --now "$SERVICE"
 
 echo "installed $UNIT, running as $RUN_USER"
-echo "  HEF=$HEF  OUT_SIZE=$OUT_SIZE  PUBLISH_SIZE=$PUBLISH_SIZE  LABELS=${LABELS:-<auto>}  FPS=$FPS"
+echo "  HEF=$HEF  WORK_SIZE=$WORK_SIZE  PUBLISH_SIZE=$PUBLISH_SIZE  LABELS=${LABELS:-<auto>}  FPS=$FPS  EXTRA_ARGS=${EXTRA_ARGS:-<none>}"
 sleep 3
 systemctl --no-pager --lines=10 status "$SERVICE" || true
 echo "follow the log with:   journalctl -fu $SERVICE"
