@@ -1,3 +1,1 @@
 useful_shellscripts/mavlink-router/*
-# Hailo HEFs are large binaries; keep them out of git
-hailo-models/*.hef
