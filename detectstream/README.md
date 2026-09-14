@@ -40,7 +40,7 @@ gets CPU priority over everything else.
 ## Running
 
 ```bash
-python3 detect_stream.py --hef ~/hailo26/model.hef --work-size 1280x720 --publish-size 960x540
+python3 detect_stream.py --hef hailo-models/26s_boat_coco_close.hef --work-size 1280x720 --publish-size 960x540
 python3 detect_stream.py --help
 ```
 
@@ -64,11 +64,11 @@ Only one process can hold the HAT. Stop the service before running by hand:
 ## As a service
 
 ```bash
-sudo HEF=/home/cuav7/hailo26/model.hef useful_shell_scripts/install_detect_service.sh
+sudo useful_shell_scripts/install_detect_service.sh
 journalctl -fu detect-stream
 ```
 
-Environment variables override the defaults (`WORK_SIZE`, `PUBLISH_SIZE`, `FPS`,
+Environment variables override the defaults (`HEF`, `WORK_SIZE`, `PUBLISH_SIZE`, `FPS`,
 `LABELS`, `EXTRA_ARGS`). Rerun the installer to change them. The service restarts
 itself if the camera stream drops or MediaMTX restarts.
 

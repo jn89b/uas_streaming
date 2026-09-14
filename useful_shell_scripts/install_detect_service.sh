@@ -8,12 +8,12 @@
 # one level up (override with SCRIPT=/path/to/detect_stream.py).
 #
 # Usage:
-#     sudo HEF=/home/cuav7/hailo26/model.hef ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
+#     sudo ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
 #     sudo HEF=... FPS=15 PUBLISH_SIZE=640x360 ~/uas_streaming/useful_shell_scripts/install_detect_service.sh
 #     sudo ~/uas_streaming/useful_shell_scripts/install_detect_service.sh --uninstall
 #
 # Settings (environment variables):
-#     HEF           path to the .hef              default: <home>/model.hef
+#     HEF           path to the .hef              default: <repo>/hailo-models/26s_boat_coco_close.hef
 #     WORK_SIZE     resolution the model sees     default: 1280x720  (OUT_SIZE accepted as alias)
 #     PUBLISH_SIZE  published resolution          default: 960x540
 #     FPS           published frame rate          default: 30
@@ -45,12 +45,11 @@ if [[ "${1:-}" == "--uninstall" ]]; then
 fi
 
 RUN_USER="${SUDO_USER:-$USER}"
-RUN_HOME="$(getent passwd "$RUN_USER" | cut -d: -f6)"
 THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$THIS_DIR/.." && pwd)"
 SCRIPT="${SCRIPT:-$REPO_DIR/detect_stream.py}"
 
-HEF="${HEF:-$RUN_HOME/model.hef}"
+HEF="${HEF:-$REPO_DIR/hailo-models/26s_boat_coco_close.hef}"
 WORK_SIZE="${WORK_SIZE:-${OUT_SIZE:-1280x720}}"
 PUBLISH_SIZE="${PUBLISH_SIZE:-960x540}"
 FPS="${FPS:-30}"
